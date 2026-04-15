@@ -45,7 +45,7 @@ namespace Ex01_2
             StringBuilder treeLine = new StringBuilder(baseTreeLine);
             int currentLettersAmount = 1;
             string spacesInTreeLine = maxWidth - currentWidth - 1 >= 0
-                ? new string(' ', (maxWidth - currentWidth - 1) : new string('\b', 1));
+                ? new string(' ', maxWidth - currentWidth - 1) : string.Empty;
 
             treeLine.Append(spacesInTreeLine);
             treeLine.Append(' ');
@@ -70,7 +70,7 @@ namespace Ex01_2
         {
             string baseRootLine = string.Format("{0} ", currentLevel);
             StringBuilder rootLine = new StringBuilder(baseRootLine);
-            string spacesInRootLine = new string(' ', maxWidth - 3);
+            string spacesInRootLine = new string(' ', maxWidth - 2);
 
             rootLine.Append(spacesInRootLine);
             rootLine.Append(string.Format("|{0}|", currentCharToPrint));
