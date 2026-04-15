@@ -172,7 +172,7 @@ namespace Ex01_1
             printAverageOfAllNumber(decimalNumbers);
             printLongestBitSequenceOfBinaryNumber(binaryNumbers);
             printTotalOfOneBitsInBinaryNumbers(binaryNumbers);
-            printNumberOfBinaryNumbersTransitions(binaryNumbers, decimalNumbers);
+            printNumberOfMostBinaryNumbersTransitions(binaryNumbers, decimalNumbers);
             printNumbersDivisibleByFour(binaryNumbers);
         }
 
@@ -300,7 +300,7 @@ namespace Ex01_1
             Console.WriteLine(totalOfOneBitsMessage);
         }
 
-        private static void printNumberOfBinaryNumbersTransitions(string[] binaryNumbers, int[] decimalNumbers)
+        private static void printNumberOfMostBinaryNumbersTransitions(string[] binaryNumbers, int[] decimalNumbers)
         {
             int mostTransitionsCounter = 0;
             int currentTransitionsCounter = 0;
@@ -326,10 +326,12 @@ namespace Ex01_1
                     binaryNumberWithMostTransitions = currentBinaryNumber;
                     decimalNumberWithMostTransitions = decimalNumbers[i];
                 }
-                
-                string numberWithMostTranstionsMessage = string.Format("Number with most transitions: {0} ({1}) - {2} transitions", decimalNumberWithMostTransitions, binaryNumberWithMostTransitions, mostTransitionsCounter);
-                Console.WriteLine(numberWithMostTranstionsMessage);
+
+                currentTransitionsCounter = 0;
             }
+            
+            string numberWithMostTranstionsMessage = string.Format("Number with most transitions: {0} ({1}) - {2} transitions", decimalNumberWithMostTransitions, binaryNumberWithMostTransitions, mostTransitionsCounter);
+            Console.WriteLine(numberWithMostTranstionsMessage);
         }
 
         private static void printNumbersDivisibleByFour(string[] binaryNumbers)
