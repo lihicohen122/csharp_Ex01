@@ -10,7 +10,7 @@ namespace Ex01_2
             printTree();
         }
 
-        private static void printTree(int treeDepth = 7)
+        public static void printTree(int treeDepth = 7)
         {
             if (treeDepth < 4 || treeDepth > 15)
             {
