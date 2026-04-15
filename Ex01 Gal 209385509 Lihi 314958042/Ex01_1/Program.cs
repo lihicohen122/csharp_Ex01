@@ -17,14 +17,13 @@ namespace Ex01_1
             int currentAmountOfNumbers = 0;
             string[] binaryNumbers;
             int[] decimalNumbers = new int[desiredAmountOfNumbers];
-            bool isCurrentBinaryNumberParsable = false;
             
             Console.WriteLine("Please enter 4 binary numbers.");
             Console.WriteLine("Each binary number entered must be exactly 7 characters long and contain only 0 or 1: ");
             while (currentAmountOfNumbers < desiredAmountOfNumbers)
             {
                 string currentUserEnteredBinaryNumber = Console.ReadLine();
-                isCurrentBinaryNumberParsable = isParsable(currentUserEnteredBinaryNumber, desiredBinaryNumberLength);
+                bool isCurrentBinaryNumberParsable = isParsable(currentUserEnteredBinaryNumber, desiredBinaryNumberLength);
                 if (isCurrentBinaryNumberParsable == true)
                 {
                     decimalNumbers[currentAmountOfNumbers] = convertBinaryNumberToDecimalNumber(currentUserEnteredBinaryNumber);
@@ -113,7 +112,7 @@ namespace Ex01_1
 
             while (leftIndex <= middle && rightIndex <= right)
             {
-                if (array[leftIndex] <= array[rightIndex])
+                if (array[leftIndex] >= array[rightIndex])
                 {
                     tempArray[tempIndex++] = array[leftIndex++];
                 }
