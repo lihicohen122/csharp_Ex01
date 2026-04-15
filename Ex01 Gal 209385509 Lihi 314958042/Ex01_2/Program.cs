@@ -41,11 +41,11 @@ namespace Ex01_2
 
         private static void printLine(int currentLevel, ref char currentCharToPrint, int currentWidth, int maxWidth)
         {
-            string baseTreeLine = string.Format("{0} ", currentLevel);
+            string baseTreeLine = string.Format("{0}  ", currentLevel);
             StringBuilder treeLine = new StringBuilder(baseTreeLine);
             int currentLettersAmount = 1;
             string spacesInTreeLine = maxWidth - currentWidth - 1 >= 0
-                ? new string(' ', maxWidth - currentWidth - 1) : string.Empty;
+                ? new string(' ', maxWidth - currentWidth - 1) : new string('\b', 1);
 
             treeLine.Append(spacesInTreeLine);
             treeLine.Append(' ');
@@ -68,7 +68,7 @@ namespace Ex01_2
 
         private static void printRoot(int currentLevel, char currentCharToPrint, int maxWidth)
         {
-            string baseRootLine = string.Format("{0} ", currentLevel);
+            string baseRootLine = string.Format("{0}  ", currentLevel);
             StringBuilder rootLine = new StringBuilder(baseRootLine);
             string spacesInRootLine = new string(' ', maxWidth - 2);
 
