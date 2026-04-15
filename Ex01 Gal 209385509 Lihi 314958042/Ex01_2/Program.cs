@@ -7,27 +7,25 @@ namespace Ex01_2
     {
         public static void Main()
         {
-            printTree();
+            PrintTree();
         }
 
-        public static void printTree(int treeDepth = 7)
+        public static void PrintTree(int i_TreeDepth = 7)
         {
-            if (treeDepth < 4 || treeDepth > 15)
-            {
-                string invalidMessage =
-                    string.Format(
-                        "The tree depth entered ({0}) is invalid. Please enter a new tree depth between 4 and 15.",
-                        treeDepth);
-                Console.WriteLine(invalidMessage);
-                return;
-            }
-
-            int maxWidth = (treeDepth - 2) * 2 - 1;
             int currentWidth = 1;
             int currentLevel = 1;
             char currentCharToPrint = 'A';
 
-            while (currentLevel + 2 <= treeDepth)
+            if (i_TreeDepth < 4 || i_TreeDepth > 15)
+            {
+                string invalidMessage = string.Format("The tree depth entered ({0}) is invalid. Please enter a new tree depth between 4 and 15.", i_TreeDepth);
+                Console.WriteLine(invalidMessage);
+                return;
+            }
+
+            int maxWidth = (i_TreeDepth - 2) * 2 - 1;
+
+            while (currentLevel + 2 <= i_TreeDepth)
             {
                 printLine(currentLevel, ref currentCharToPrint, currentWidth, maxWidth);
                 currentLevel++;
@@ -39,21 +37,20 @@ namespace Ex01_2
             printRoot(currentLevel, currentCharToPrint, maxWidth);
         }
 
-        private static void printLine(int currentLevel, ref char currentCharToPrint, int currentWidth, int maxWidth)
+        private static void printLine(int i_CurrentLevel, ref char i_CurrentCharToPrint, int i_CurrentWidth, int i_MaxWidth)
         {
-            string baseTreeLine = string.Format("{0}  ", currentLevel);
+            string baseTreeLine = string.Format("{0}  ", i_CurrentLevel);
             StringBuilder treeLine = new StringBuilder(baseTreeLine);
             int currentLettersAmount = 1;
-            string spacesInTreeLine = maxWidth - currentWidth - 1 >= 0
-                ? new string(' ', maxWidth - currentWidth - 1) : new string('\b', 1);
+            string spacesInTreeLine = i_MaxWidth - i_CurrentWidth - 1 >= 0 ? new string(' ', i_MaxWidth - i_CurrentWidth - 1) : new string('\b', 1);
 
             treeLine.Append(spacesInTreeLine);
             treeLine.Append(' ');
-            while (currentLettersAmount <= currentWidth)
+            while (currentLettersAmount <= i_CurrentWidth)
             {
-                treeLine.Append(currentCharToPrint);
+                treeLine.Append(i_CurrentCharToPrint);
                 treeLine.Append(' ');
-                currentCharToPrint = getNextChar(currentCharToPrint);
+                i_CurrentCharToPrint = getNextChar(i_CurrentCharToPrint);
                 currentLettersAmount++;
             }
 
@@ -61,19 +58,19 @@ namespace Ex01_2
             Console.WriteLine(treeLine.ToString());
         }
 
-        private static char getNextChar(char currentChar)
+        private static char getNextChar(char i_CurrentChar)
         {
-            return currentChar == 'Z' ? 'A' : (char)(currentChar + 1);
+            return i_CurrentChar == 'Z' ? 'A' : (char)(i_CurrentChar + 1);
         }
 
-        private static void printRoot(int currentLevel, char currentCharToPrint, int maxWidth)
+        private static void printRoot(int i_CurrentLevel, char i_CurrentCharToPrint, int i_MaxWidth)
         {
-            string baseRootLine = string.Format("{0}  ", currentLevel);
+            string baseRootLine = string.Format("{0}  ", i_CurrentLevel);
             StringBuilder rootLine = new StringBuilder(baseRootLine);
-            string spacesInRootLine = new string(' ', maxWidth - 2);
+            string spacesInRootLine = new string(' ', i_MaxWidth - 2);
 
             rootLine.Append(spacesInRootLine);
-            rootLine.Append(string.Format("|{0}|", currentCharToPrint));
+            rootLine.Append(string.Format("|{0}|", i_CurrentCharToPrint));
             rootLine.Append(spacesInRootLine);
             Console.WriteLine(rootLine.ToString());
         }
