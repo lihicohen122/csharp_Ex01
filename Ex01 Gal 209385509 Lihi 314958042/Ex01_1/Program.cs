@@ -7,23 +7,22 @@ namespace Ex01_1
     {
         public static void Main()
         {
-            runApp();
+            RunApp();
         }
 
-        public static void runApp()
+        public static void RunApp()
         {
-            const int desiredAmountOfNumbers = 4;
-            const int desiredBinaryNumberLength = 7;
+            const int k_DesiredAmountOfNumbers = 4;
+            const int k_DesiredBinaryNumberLength = 7;
             int currentAmountOfNumbers = 0;
-            string[] binaryNumbers;
-            int[] decimalNumbers = new int[desiredAmountOfNumbers];
+            int[] decimalNumbers = new int[k_DesiredAmountOfNumbers];
             
             Console.WriteLine("Please enter 4 binary numbers.");
             Console.WriteLine("Each binary number entered must be exactly 7 characters long and contain only 0 or 1: ");
-            while (currentAmountOfNumbers < desiredAmountOfNumbers)
+            while (currentAmountOfNumbers < k_DesiredAmountOfNumbers)
             {
                 string currentUserEnteredBinaryNumber = Console.ReadLine();
-                bool isCurrentBinaryNumberParsable = isParsable(currentUserEnteredBinaryNumber, desiredBinaryNumberLength);
+                bool isCurrentBinaryNumberParsable = isParsable(currentUserEnteredBinaryNumber, k_DesiredBinaryNumberLength);
                 if (isCurrentBinaryNumberParsable == true)
                 {
                     decimalNumbers[currentAmountOfNumbers] = convertBinaryNumberToDecimalNumber(currentUserEnteredBinaryNumber);
@@ -37,7 +36,7 @@ namespace Ex01_1
             }
 
             mergeSortToDecimalNumbersArray(decimalNumbers);
-            convertDecimalNumbersArrayToBinaryNumbersArray(out binaryNumbers, decimalNumbers, desiredBinaryNumberLength);
+            convertDecimalNumbersArrayToBinaryNumbersArray(out string[] binaryNumbers, decimalNumbers, k_DesiredBinaryNumberLength);
             printStatisticsOnNumbers(decimalNumbers, binaryNumbers);
         }
 
@@ -336,27 +335,28 @@ namespace Ex01_1
         {
             int counterOfNumbersDivisibleByFour = 0;
             int binaryNumbersLength = binaryNumbers.Length;
-            string[] binaryNumbersDvisibleByFour = new string[binaryNumbersLength];
+            string[] binaryNumbersDivisibleByFour = new string[binaryNumbersLength];
 
             for (int i = 0; i < binaryNumbersLength; i++)
             {
                 string currentBinaryNumber = binaryNumbers[i];
                 if (currentBinaryNumber.EndsWith("00"))
                 {
-                    binaryNumbersDvisibleByFour[counterOfNumbersDivisibleByFour] = currentBinaryNumber;
+                    binaryNumbersDivisibleByFour[counterOfNumbersDivisibleByFour] = currentBinaryNumber;
                     counterOfNumbersDivisibleByFour++;
                 }
             }
 
-            string startString = string.Format("Numbers divisible by 4: {0}",  counterOfNumbersDivisibleByFour);
+            string startString = string.Format("Numbers divisible by 4: {0}", counterOfNumbersDivisibleByFour);
             StringBuilder numbersDivisibleByFourString = new StringBuilder(startString);
 
             if (counterOfNumbersDivisibleByFour > 0)
             {
-                numbersDivisibleByFourString.Append("(");
+                numbersDivisibleByFourString.Append(" (");
                 for (int j = 0; j < counterOfNumbersDivisibleByFour; j++)
                 {
-                    numbersDivisibleByFourString.Append(binaryNumbersDvisibleByFour[counterOfNumbersDivisibleByFour]);
+                    numbersDivisibleByFourString.Append(binaryNumbersDivisibleByFour[j]);
+
                     if (j < counterOfNumbersDivisibleByFour - 1)
                     {
                         numbersDivisibleByFourString.Append(", ");
@@ -364,7 +364,8 @@ namespace Ex01_1
                 }
                 numbersDivisibleByFourString.Append(")");
             }
-            Console.WriteLine(numbersDivisibleByFourString);
+
+            Console.WriteLine(numbersDivisibleByFourString.ToString());
         }
     }
 }
