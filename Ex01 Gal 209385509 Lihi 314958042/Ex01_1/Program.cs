@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Ex01_1
 {
@@ -73,7 +70,7 @@ namespace Ex01_1
         private static int convertBinaryNumberToDecimalNumber(string binaryNumber)
         {
             int result = 0;
-            binaryNumberLength = binaryNumber.Length;
+            int binaryNumberLength = binaryNumber.Length;
             for (int i = 0; i < binaryNumberLength; i++)
             {
                 if (binaryNumber[i] == '1')
@@ -151,38 +148,30 @@ namespace Ex01_1
             }
         }
 
-        private static string convertDecimalNumberToBinaryNumber(int decimalNumber, int desiredBinaryNumberLength)
+        private static string convertDecimalNumberToBinaryNumber(int decimalNumber, int length)
         {
-            string resultBinaryNumber = "0000000";
-            
-            if (decimalNumber == 0)
+            char[] binaryArray = new char[length];
+            for(int i = 0; i < length; i++)
             {
-                return resultBinaryNumber;
+                binaryArray[i] = '0';
             }
-            else
-            {
-                int i = 0;
-                string reversedBinaryNumber = new string[desiredBinaryNumberLength];
-                while (decimalNumber > 0)
-                {
-                    reversedBinaryNumber[i] = decimalNumber % 2;
-                    decimalNumber /= 2;
-                    i++;
-                }
 
-                for (; i > 0; i--)
-                {
-                    resultBinaryNumber[desiredBinaryNumberLength - i] = reversedBinaryNumber[i - 1];
-                }
-                return resultBinaryNumber;
+            int index = length - 1;
+            while (decimalNumber > 0 && index >= 0)
+            {
+                binaryArray[index] = (char)((decimalNumber % 2) + '0');
+                decimalNumber /= 2;
+                index--;
             }
+
+            return new string(binaryArray);
         }
 
         private static void printStatisticsOnNumbers(int[] decimalNumbers, string[] binaryNumbers)
         {
             printAllNumberInDescendingOrder(decimalNumbers, binaryNumbers);
             printAverageOfAllNumber(decimalNumbers);
-            printLongestBitSequenceOfAbinaryNumber(binaryNumbers);
+            printLongestBitSequenceOfBinaryNumber(binaryNumbers);
             printTotalOfOneBitsInBinaryNumbers(binaryNumbers);
             printNumberOfBinaryNumbersTransitions(binaryNumbers, decimalNumbers);
             printNumbersDivisibleByFour(binaryNumbers);
@@ -215,65 +204,79 @@ namespace Ex01_1
             Console.WriteLine(averageString);
         }
 
-        private static void printLongestBitSequenceOfAbinaryNumber(string[] binaryNumbers)
+        private static void printLongestBitSequenceOfBinaryNumber(string[] binaryNumbers)
         {
-            int binaryNumberLength = binaryNumbers[0].Length;
-            int longestBitSequenceOfABinaryNumber = 0;
-            int binaryNumbersWithLongestBitsSequenceCounter = 0;
-            string[] binaryNumbersWithLongestBitSequence = new string[binaryNumbers.Length];
+            if (binaryNumbers == null || binaryNumbers.Length == 0)
+                return;
 
-            for (int i = binaryNumbers.Length - 1; i > 0; i--)
+            string[] numbersWithMaxSequence = new string[4];
+            int numbersCount = 0;
+            int recordSequence = 0;
+
+            foreach (string currentNumber in binaryNumbers)
             {
-                string currentBinaryNumber = binaryNumbers[i];
-                for (int j = 0; j < currentBinaryNumber.Length; j++)
+                int currentMax = getMaxBitSequence(currentNumber);
+
+                if (currentMax > recordSequence)
                 {
-                    int currentBitSequence = 1;
-                    while (j < currentBinaryNumber.Length - 1)
-                    {
-                        if (currentBinaryNumber[j] == currentBinaryNumber[j + 1])
-                        {
-                            currentBitSequence++;
-                        }
-                        else
-                        {
-                            currentBitSequence = 1;
-                        }
-                        j++;
-                        
-                        if (currentBitSequence == longestBitSequenceOfABinaryNumber)
-                        {
-                            binaryNumbersWithLongestBitSequence[binaryNumbersWithLongestBitsSequenceCounter] = currentBinaryNumber;
-                            binaryNumbersWithLongestBitsSequenceCounter++;
-                        }
-                        
-                        if (currentBitSequence > longestBitSequenceOfABinaryNumber)
-                        {
-                            binaryNumbersWithLongestBitsSequenceCounter = 0;
-                            longestBitSequenceOfABinaryNumber = currentBitSequence;
-                            binaryNumbersWithLongestBitSequence[binaryNumbersWithLongestBitsSequenceCounter] = currentBinaryNumber;
-                            binaryNumbersWithLongestBitsSequenceCounter++;
-                        }
-                    }
+                    recordSequence = currentMax;
+                    numbersCount = 0;
+                    numbersWithMaxSequence[numbersCount++] = currentNumber;
+                }
+                else if (currentMax == recordSequence && currentMax > 0 && numbersCount < 4)
+                {
+                    numbersWithMaxSequence[numbersCount++] = currentNumber;
                 }
             }
-            
-            string startString = string.Format("Longest bit sequence: {0}",  longestBitSequenceOfABinaryNumber);
-            StringBuilder longestBitSequenceMessage = new StringBuilder(startString);
 
-            if (binaryNumbersWithLongestBitsSequenceCounter > 0)
+            string baseMessage = string.Format("Longest bit sequence: {0}", recordSequence);
+            StringBuilder output = new StringBuilder(baseMessage);
+
+            if (numbersCount > 0)
             {
-                longestBitSequenceMessage.Append("(");
-                for (int j = 0; j < binaryNumbersWithLongestBitsSequenceCounter; j++)
+                output.Append(" (");
+
+                for (int i = 0; i < numbersCount; i++)
                 {
-                    longestBitSequenceMessage.Append(binaryNumbersDvisibleByFour[binaryNumbersWithLongestBitsSequenceCounter]);
-                    if (j < binaryNumbersWithLongestBitsSequenceCounter - 1)
+                    output.Append(string.Format("{0}", numbersWithMaxSequence[i]));
+
+                    if (i < numbersCount - 1)
                     {
-                        longestBitSequenceMessage.Append(", ");
+                        output.Append(", ");
                     }
                 }
-                longestBitSequenceMessage.Append(")");
+                output.Append(")");
             }
-            Console.WriteLine(longestBitSequenceMessage);
+
+            Console.WriteLine(output.ToString());
+        }
+
+        private static int getMaxBitSequence(string binaryNumber)
+        {
+            if (string.IsNullOrEmpty(binaryNumber))
+                return 0;
+
+            int maxCount = 1;
+            int currentCount = 1;
+
+            for (int i = 0; i < binaryNumber.Length - 1; i++)
+            {
+                if (binaryNumber[i] == binaryNumber[i + 1])
+                {
+                    currentCount++;
+                }
+                else
+                {
+                    currentCount = 1;
+                }
+
+                if (currentCount > maxCount)
+                {
+                    maxCount = currentCount;
+                }
+            }
+
+            return maxCount;
         }
 
         private static void printTotalOfOneBitsInBinaryNumbers(string[] binaryNumbers)
@@ -304,7 +307,7 @@ namespace Ex01_1
             int currentTransitionsCounter = 0;
             int binaryNumbersLength = binaryNumbers.Length;
             int decimalNumberWithMostTransitions = 0;
-            string binaryNumberWithMostTransitions = new string[binaryNumberLength];
+            string binaryNumberWithMostTransitions = string.Empty;
             
             for (int i = 0; i < binaryNumbersLength; i++)
             {
@@ -339,14 +342,14 @@ namespace Ex01_1
             for (int i = 0; i < binaryNumbersLength; i++)
             {
                 string currentBinaryNumber = binaryNumbers[i];
-                if currentBinaryNumber.EndsWith("00")
+                if (currentBinaryNumber.EndsWith("00"))
                 {
                     binaryNumbersDvisibleByFour[counterOfNumbersDivisibleByFour] = currentBinaryNumber;
                     counterOfNumbersDivisibleByFour++;
                 }
             }
 
-            string startString = string.Format("Numbers divisible by 4: {0}",  ounterOfNumbersDivisibleByFour);
+            string startString = string.Format("Numbers divisible by 4: {0}",  counterOfNumbersDivisibleByFour);
             StringBuilder numbersDivisibleByFourString = new StringBuilder(startString);
 
             if (counterOfNumbersDivisibleByFour > 0)
