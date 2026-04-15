@@ -41,7 +41,7 @@ namespace Ex01_2
         string baseTreeLine = string.Format("{0} ", currentLevel);
         StringBuilder treeLine = new StringBuilder(baseTreeLine);
         int currentLettersAmount = 1;
-        string spacesInTreeLine = new string(' ', ((maxWidth / 2) - currentWidth) * 2 - 1);
+        string spacesInTreeLine = maxWidth - currentWidth - 1 >= 0 ? new string(' ', (maxWidth - currentWidth - 1) : new string('\b', 1));
 
         treeLine.Append(spacesInTreeLine);
         treeLine.Append(' ');
