@@ -27,7 +27,7 @@ namespace Ex01_2
             int currentLevel = 1;
             char currentCharToPrint = 'A';
 
-            while (currentLevel + 2 < treeDepth)
+            while (currentLevel + 2 <= treeDepth)
             {
                 printLine(currentLevel, ref currentCharToPrint, currentWidth, maxWidth);
                 currentLevel++;
@@ -70,7 +70,7 @@ namespace Ex01_2
         {
             string baseRootLine = string.Format("{0} ", currentLevel);
             StringBuilder rootLine = new StringBuilder(baseRootLine);
-            string spacesInRootLine = new string(' ', ((maxWidth / 2) - 1) * 2 - 1);
+            string spacesInRootLine = new string(' ', maxWidth - 3);
 
             rootLine.Append(spacesInRootLine);
             rootLine.Append(string.Format("|{0}|", currentCharToPrint));
