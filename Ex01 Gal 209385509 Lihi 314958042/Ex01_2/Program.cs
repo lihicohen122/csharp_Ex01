@@ -16,7 +16,7 @@ namespace Ex01_2
             int currentLevel = 1;
             char currentCharToPrint = 'A';
 
-            if (i_TreeDepth < 4 || i_TreeDepth > 15)
+            if (i_TreeDepth < 3)
             {
                 string invalidMessage = string.Format("The tree depth entered ({0}) is invalid. Please enter a new tree depth between 4 and 15.", i_TreeDepth);
                 Console.WriteLine(invalidMessage);
