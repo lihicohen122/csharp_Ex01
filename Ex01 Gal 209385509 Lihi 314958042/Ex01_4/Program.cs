@@ -53,8 +53,7 @@ namespace Ex01_4
             }
             else
             {
-                isPalindromeResult =
-                    isUserInputPalindrome(i_UserStringInput.Substring(1, i_UserStringInput.Length - 2));
+                isPalindromeResult = isUserInputPalindrome(i_UserStringInput.Substring(1, i_UserStringInput.Length - 2));
             }
 
             return isPalindromeResult;
