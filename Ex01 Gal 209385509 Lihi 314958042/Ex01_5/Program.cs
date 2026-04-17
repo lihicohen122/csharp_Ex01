@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Ex01_5
 {
@@ -41,6 +38,7 @@ namespace Ex01_5
         private static void calculateAndPrintNumberOfDigitsBiggerThanUnitNumber(string i_UserInputString)
         {
             bool didParseSucceed = int.TryParse(i_UserInputString, out int userInputNumber);
+
             if(!didParseSucceed)
             {
                 Console.WriteLine("Invalid input!");
@@ -50,11 +48,12 @@ namespace Ex01_5
             int unitNumber = userInputNumber % 10;
             string unitNumberSubString = string.Format("Unit number is: {0}.", unitNumber);
             StringBuilder numberOfDigitsBiggerThanUnitNumberStringBuilder = new StringBuilder(unitNumberSubString);
-
             int numberOfDigitsBiggerThanUnitNumber = 0;
+
             while(userInputNumber > 0)
             {
                 int currentDigit = userInputNumber % 10;
+
                 if(currentDigit > unitNumber)
                 {
                     numberOfDigitsBiggerThanUnitNumber++;
@@ -66,19 +65,23 @@ namespace Ex01_5
                     numberOfDigitsBiggerThanUnitNumberStringBuilder.Append(", ");
                     
                 }
+
                 userInputNumber /= 10;
             }
 
             if(numberOfDigitsBiggerThanUnitNumber > 0)
             {
                 int indexOfLastComma = numberOfDigitsBiggerThanUnitNumberStringBuilder.ToString().LastIndexOf(',');
+
                 numberOfDigitsBiggerThanUnitNumberStringBuilder.Remove(indexOfLastComma, 1).Insert(indexOfLastComma, ".");
             }
             else
             {
                 numberOfDigitsBiggerThanUnitNumberStringBuilder.Append(" No digits bigger than the unit number. ");
             }
+
             string subStringOfNumberOfDigitsBiggerThanUnitNumber = string.Format("Total of: {0}.", numberOfDigitsBiggerThanUnitNumber);
+
             numberOfDigitsBiggerThanUnitNumberStringBuilder.Append(subStringOfNumberOfDigitsBiggerThanUnitNumber);
             Console.WriteLine(numberOfDigitsBiggerThanUnitNumberStringBuilder.ToString());
         }
@@ -87,6 +90,7 @@ namespace Ex01_5
         {
             int numberOfDigitsDivisibleByFour = calculateNumberOfDigitsDivisibleByFour(i_UserInputString);
             string divisibleByFourMessage = string.Format("How many digits divisible by 4? {0}.", numberOfDigitsDivisibleByFour);
+
             Console.WriteLine(divisibleByFourMessage);
         }
 
@@ -94,6 +98,7 @@ namespace Ex01_5
         {
             int numberOfDigitsDivisibleByFour = 0;
             int userInputStringLength = i_UserInputString.Length;
+
             for (int i = 0; i < userInputStringLength; i++)
             {
                 if((int)char.GetNumericValue(i_UserInputString[i]) % 4 == 0)
@@ -109,6 +114,7 @@ namespace Ex01_5
         {
             int multiplicationOfMinimumDigitAndMaximumDigit = findAndCalculateTheMultiplicationOfMinimumDigitAndMaximumDigit(i_UserInputString);
             string multiplicationOfMinimumDigitAndMaximumDigitMessage = string.Format("The Multiplication of the biggest digit and smallest digit is: {0}", multiplicationOfMinimumDigitAndMaximumDigit);
+
             Console.WriteLine(multiplicationOfMinimumDigitAndMaximumDigitMessage);
         }
 
@@ -121,6 +127,7 @@ namespace Ex01_5
             for (int i = 0; i < userInputStringLength; i++)
             {
                 int currentDigit = (int)char.GetNumericValue(i_UserInputString[i]);
+
                 if (currentDigit > maximumDigitInUserString)
                 {
                     maximumDigitInUserString = currentDigit;
@@ -130,14 +137,15 @@ namespace Ex01_5
                     minimumDigitInUserString = currentDigit;
                 }
             }
+
             return maximumDigitInUserString * minimumDigitInUserString;
         }
 
         private static void printNumberOfUniqueDigitsInNumber(string i_UserInputString)
         {
             int numberOfUniqueDigitsInNumber = calculateNumberOfUniqueDigitsInNumber(i_UserInputString);
-
             string numberOfUniqueDigitsInNumberMessage = string.Format("The number of unique digits in the number is: {0}", numberOfUniqueDigitsInNumber);
+
             Console.WriteLine(numberOfUniqueDigitsInNumberMessage);
         }
 
@@ -150,10 +158,12 @@ namespace Ex01_5
             for (int i = 0; i < userInputStringLength; i++)
             {
                 int currentDigit = (int)char.GetNumericValue(i_UserInputString[i]);
+
                 if (numberOfUniqueDigitsInNumberCalculationString[currentDigit] == '0')
                 {
                     numberOfUniqueDigitsInNumberResult++;
                     StringBuilder stringBuilder = new StringBuilder(numberOfUniqueDigitsInNumberCalculationString);
+
                     stringBuilder[currentDigit] = '1';
                     numberOfUniqueDigitsInNumberCalculationString = stringBuilder.ToString();
                 }
