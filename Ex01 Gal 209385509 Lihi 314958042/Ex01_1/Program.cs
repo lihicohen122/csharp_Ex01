@@ -187,7 +187,7 @@ namespace Ex01_1
 
             for(int i = 0; i < i_DecimalNumbers.Length; ++i)
             {
-                allNumbersStringOutput.Append(i_DecimalNumbers[i] + "(" + i_BinaryNumbers[i] + ")");
+                allNumbersStringOutput.Append(i_DecimalNumbers[i] + " (" + i_BinaryNumbers[i] + ")");
                 if(i != i_DecimalNumbers.Length - 1)
                 {
                     allNumbersStringOutput.Append(", ");
