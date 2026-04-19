@@ -7,10 +7,10 @@ namespace Ex01_1
     {
         public static void Main()
         {
-            RunApp();
+            runApp();
         }
 
-        public static void RunApp()
+        private static void runApp()
         {
             const int k_DesiredAmountOfNumbers = 4;
             const int k_DesiredBinaryNumberLength = 7;
@@ -28,11 +28,11 @@ namespace Ex01_1
 
             Console.WriteLine("Please enter 4 binary numbers.");
             Console.WriteLine("Each binary number entered must be exactly 7 characters long and contain only 0 or 1: ");
-            while (currentAmountOfNumbers < i_DesiredAmountOfNumbers)
+            while(currentAmountOfNumbers < i_DesiredAmountOfNumbers)
             {
                 string currentUserEnteredBinaryNumber = Console.ReadLine();
                 bool isCurrentBinaryNumberParsable = isParsable(currentUserEnteredBinaryNumber, i_DesiredBinaryNumberLength);
-                if (isCurrentBinaryNumberParsable)
+                if(isCurrentBinaryNumberParsable)
                 {
                     o_DecimalNumbers[currentAmountOfNumbers] = convertBinaryNumberToDecimalNumber(currentUserEnteredBinaryNumber);
                     currentAmountOfNumbers++;
@@ -50,7 +50,6 @@ namespace Ex01_1
             return !string.IsNullOrEmpty(i_BinaryNumber) && isBinary(i_BinaryNumber) && isCorrectLength(i_BinaryNumber, i_DesiredBinaryNumberLength);
         }
 
-
         private static bool isCorrectLength(string i_BinaryNumber, int i_DesiredBinaryNumberLength)
         {
             return i_BinaryNumber.Length == i_DesiredBinaryNumberLength;
@@ -59,9 +58,9 @@ namespace Ex01_1
         private static bool isBinary(string i_BinaryNumber)
         { 
             bool isBinary = true;
-            for (int i=0; i < i_BinaryNumber.Length; i++)
+            for(int i = 0; i < i_BinaryNumber.Length; ++i)
             {
-                if (i_BinaryNumber[i] != '0' && i_BinaryNumber[i] != '1')
+                if(i_BinaryNumber[i] != '0' && i_BinaryNumber[i] != '1')
                 {
                     isBinary = false;
                 }
@@ -75,9 +74,9 @@ namespace Ex01_1
             int result = 0;
             int binaryNumberLength = i_BinaryNumber.Length;
 
-            for (int i = 0; i < binaryNumberLength; i++)
+            for(int i = 0; i < binaryNumberLength; ++i)
             {
-                if (i_BinaryNumber[i] == '1')
+                if(i_BinaryNumber[i] == '1')
                 {
                     result += (int)Math.Pow(2, binaryNumberLength - 1 - i);
                 }
@@ -88,7 +87,7 @@ namespace Ex01_1
 
         private static void descendingMergeSortDecimalNumbersArray(int[] i_DecimalNumbers)
         {
-            if (i_DecimalNumbers == null || i_DecimalNumbers.Length < 2)
+            if(i_DecimalNumbers == null || i_DecimalNumbers.Length < 2)
             {
                 return;
             }
@@ -98,7 +97,7 @@ namespace Ex01_1
 
         private static void mergeSort(int[] i_DecimalNumbers, int i_Left, int i_Right, int[] i_TempDecimalsArray)
         {
-            if (i_Left >= i_Right)
+            if(i_Left >= i_Right)
             {
                 return;
             }
@@ -115,9 +114,9 @@ namespace Ex01_1
             int rightIndex = i_Middle + 1;
             int tempIndex = i_Left;
 
-            while (leftIndex <= i_Middle && rightIndex <= i_Right)
+            while(leftIndex <= i_Middle && rightIndex <= i_Right)
             {
-                if (i_InputArray[leftIndex] >= i_InputArray[rightIndex])
+                if(i_InputArray[leftIndex] >= i_InputArray[rightIndex])
                 {
                     i_TempArray[tempIndex++] = i_InputArray[leftIndex++];
                 }
@@ -127,17 +126,17 @@ namespace Ex01_1
                 }
             }
 
-            while (leftIndex <= i_Middle)
+            while(leftIndex <= i_Middle)
             {
                 i_TempArray[tempIndex++] = i_InputArray[leftIndex++];
             }
 
-            while (rightIndex <= i_Right)
+            while(rightIndex <= i_Right)
             {
                 i_TempArray[tempIndex++] = i_InputArray[rightIndex++];
             }
 
-            for (int i = i_Left; i <= i_Right; i++)
+            for(int i = i_Left; i <= i_Right; ++i)
             {
                 i_InputArray[i] = i_TempArray[i];
             }
@@ -146,7 +145,7 @@ namespace Ex01_1
         private static void convertDecimalNumbersArrayToBinaryNumbersArray(out string[] o_BinaryNumbers, int[] i_DecimalNumbers, int i_DesiredBinaryNumberLength)
         {
             o_BinaryNumbers = new string[i_DecimalNumbers.Length];
-            for (int i = 0; i < i_DecimalNumbers.Length; i++)
+            for(int i = 0; i < i_DecimalNumbers.Length; ++i)
             {
                 o_BinaryNumbers[i] = convertDecimalNumberToBinaryNumber(i_DecimalNumbers[i], i_DesiredBinaryNumberLength);
             }
@@ -155,15 +154,14 @@ namespace Ex01_1
         private static string convertDecimalNumberToBinaryNumber(int i_DecimalNumber, int i_BinaryNumberLength)
         {
             char[] binaryNumber = new char[i_BinaryNumberLength];
+            int index = i_BinaryNumberLength - 1;
 
-            for(int i = 0; i < i_BinaryNumberLength; i++)
+            for (int i = 0; i < i_BinaryNumberLength; ++i)
             {
                 binaryNumber[i] = '0';
             }
-
-            int index = i_BinaryNumberLength - 1;
-
-            while (i_DecimalNumber > 0 && index >= 0)
+            
+            while(i_DecimalNumber > 0 && index >= 0)
             {
                 binaryNumber[index] = (char)((i_DecimalNumber % 2) + '0');
                 i_DecimalNumber /= 2;
@@ -187,10 +185,10 @@ namespace Ex01_1
         {
             StringBuilder allNumbersStringOutput = new StringBuilder("Decimal numbers in descending order: ");
 
-            for (int i = 0; i < i_DecimalNumbers.Length; i++)
+            for(int i = 0; i < i_DecimalNumbers.Length; ++i)
             {
                 allNumbersStringOutput.Append(i_DecimalNumbers[i] + "(" + i_BinaryNumbers[i] + ")");
-                if (i != i_DecimalNumbers.Length - 1)
+                if(i != i_DecimalNumbers.Length - 1)
                 {
                     allNumbersStringOutput.Append(", ");
                 }
@@ -203,7 +201,7 @@ namespace Ex01_1
         {
             float averageOfAllNumber = 0f;
 
-            for (int i = 0; i < i_DecimalNumbers.Length; i++)
+            for(int i = 0; i < i_DecimalNumbers.Length; ++i)
             {
                 averageOfAllNumber += i_DecimalNumbers[i];
             }
@@ -218,25 +216,25 @@ namespace Ex01_1
         {
             getLongestBitSequence(i_BinaryNumbers, out string[] numbersWithMaxSequence, out int numbersCount, out int recordSequence);
             string baseMessage = string.Format("Longest bit sequence: {0}", recordSequence);
-            StringBuilder output = new StringBuilder(baseMessage);
+            StringBuilder longestBitSequenceOfBinaryNumberOutput = new StringBuilder(baseMessage);
 
-            if (numbersCount > 0)
+            if(numbersCount > 0)
             {
-                output.Append(" (");
-                for (int i = 0; i < numbersCount; i++)
+                longestBitSequenceOfBinaryNumberOutput.Append(" (");
+                for(int i = 0; i < numbersCount; ++i)
                 {
-                    output.Append(string.Format("{0}", numbersWithMaxSequence[i]));
+                    longestBitSequenceOfBinaryNumberOutput.Append(string.Format("{0}", numbersWithMaxSequence[i]));
 
-                    if (i < numbersCount - 1)
+                    if(i < numbersCount - 1)
                     {
-                        output.Append(", ");
+                        longestBitSequenceOfBinaryNumberOutput.Append(", ");
                     }
                 }
 
-                output.Append(")");
+                longestBitSequenceOfBinaryNumberOutput.Append(")");
             }
 
-            Console.WriteLine(output.ToString());
+            Console.WriteLine(longestBitSequenceOfBinaryNumberOutput.ToString());
         }
 
         private static void getLongestBitSequence(string[] i_BinaryNumbers, out string[] o_NumbersWithMaxSequence,
@@ -246,7 +244,7 @@ namespace Ex01_1
             o_NumbersCount = 0;
             o_RecordSequence = 0;
 
-            if (i_BinaryNumbers == null || i_BinaryNumbers.Length == 0)
+            if(i_BinaryNumbers == null || i_BinaryNumbers.Length == 0)
             {
                 return;
             }
@@ -255,15 +253,14 @@ namespace Ex01_1
             {
                 int currentMax = getMaxBitSequence(currentNumber);
 
-                if (currentMax > o_RecordSequence)
+                if(currentMax > o_RecordSequence)
                 {
                     o_RecordSequence = currentMax;
                     o_NumbersCount = 0;
                     o_NumbersWithMaxSequence[o_NumbersCount] = currentNumber;
                     o_NumbersCount++;
                 }
-
-                else if (currentMax == o_RecordSequence && currentMax > 0 && o_NumbersCount < 4)
+                else if(currentMax == o_RecordSequence && currentMax > 0 && o_NumbersCount < 4)
                 {
                     o_NumbersWithMaxSequence[o_NumbersCount] = currentNumber;
                     o_NumbersCount++;
@@ -276,24 +273,23 @@ namespace Ex01_1
             int maxCount = 0;
             bool isInputValid = !string.IsNullOrEmpty(i_BinaryNumber);
 
-            if (isInputValid)
+            if(isInputValid)
             {
                 maxCount = 1;
                 int currentCount = 1;
 
-                for (int i = 0; i < i_BinaryNumber.Length - 1; i++)
+                for(int i = 0; i < i_BinaryNumber.Length - 1; ++i)
                 {
-                    if (i_BinaryNumber[i] == i_BinaryNumber[i + 1])
+                    if(i_BinaryNumber[i] == i_BinaryNumber[i + 1])
                     {
                         currentCount++;
                     }
-
                     else
                     {
                         currentCount = 1;
                     }
 
-                    if (currentCount > maxCount)
+                    if(currentCount > maxCount)
                     {
                         maxCount = currentCount;
                     }
@@ -308,13 +304,13 @@ namespace Ex01_1
             int totalOfOneBitsInBinaryNumberCounter = 0;
             int binaryNumbersLength = i_BinaryNumbers.Length;
 
-            for (int i = 0; i < binaryNumbersLength; i++)
+            for(int i = 0; i < binaryNumbersLength; ++i)
             {
                 string currentBinaryNumber = i_BinaryNumbers[i];
                 
-                for (int j = 0; j < currentBinaryNumber.Length; j++)
+                for(int j = 0; j < currentBinaryNumber.Length; ++j)
                 {
-                    if (currentBinaryNumber[j] == '1')
+                    if(currentBinaryNumber[j] == '1')
                     {
                         totalOfOneBitsInBinaryNumberCounter++;
                     }
@@ -334,19 +330,19 @@ namespace Ex01_1
             int decimalNumberWithMostTransitions = 0;
             string binaryNumberWithMostTransitions = string.Empty;
             
-            for (int i = 0; i < binaryNumbersLength; i++)
+            for(int i = 0; i < binaryNumbersLength; ++i)
             {
                 string currentBinaryNumber = i_BinaryNumbers[i];
                 
-                for (int j = 0; j < currentBinaryNumber.Length - 1; j++)
+                for(int j = 0; j < currentBinaryNumber.Length - 1; ++j)
                 {
-                    if (currentBinaryNumber[j] != currentBinaryNumber[j+1])
+                    if(currentBinaryNumber[j] != currentBinaryNumber[j + 1])
                     {
                         currentTransitionsCounter++;
                     }
                 }
                 
-                if (currentTransitionsCounter >= mostTransitionsCounter)
+                if(currentTransitionsCounter >= mostTransitionsCounter)
                 {
                     mostTransitionsCounter = currentTransitionsCounter;
                     binaryNumberWithMostTransitions = currentBinaryNumber;
@@ -367,13 +363,13 @@ namespace Ex01_1
             string startString = string.Format("Numbers divisible by 4: {0}", counterOfNumbersDivisibleByFour);
             StringBuilder numbersDivisibleByFourString = new StringBuilder(startString);
 
-            if (counterOfNumbersDivisibleByFour > 0)
+            if(counterOfNumbersDivisibleByFour > 0)
             {
                 numbersDivisibleByFourString.Append(" (");
-                for (int j = 0; j < counterOfNumbersDivisibleByFour; j++)
+                for(int j = 0; j < counterOfNumbersDivisibleByFour; ++j)
                 {
                     numbersDivisibleByFourString.Append(binaryNumbersDivisibleByFour[j]);
-                    if (j < counterOfNumbersDivisibleByFour - 1)
+                    if(j < counterOfNumbersDivisibleByFour - 1)
                     {
                         numbersDivisibleByFourString.Append(", ");
                     }
@@ -391,11 +387,11 @@ namespace Ex01_1
             o_BinaryNumbersDivisibleByFour = new string[binaryNumbersLength];
             o_CounterOfNumbersDivisibleByFour = 0;
 
-            for (int i = binaryNumbersLength - 1; i >= 0; i--)
+            for(int i = binaryNumbersLength - 1; i >= 0; --i)
             {
                 string currentBinaryNumber = i_BinaryNumbers[i];
 
-                if (currentBinaryNumber.EndsWith("00"))
+                if(currentBinaryNumber.EndsWith("00"))
                 {
                     o_BinaryNumbersDivisibleByFour[o_CounterOfNumbersDivisibleByFour] = currentBinaryNumber;
                     o_CounterOfNumbersDivisibleByFour++;

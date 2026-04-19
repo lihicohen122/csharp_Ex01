@@ -12,6 +12,7 @@ namespace Ex01_3
         private static void runApp()
         {
             int treeDepth = getUserInput();
+
             Ex01_2.Program.PrintTree(treeDepth);
         }
 
@@ -19,10 +20,10 @@ namespace Ex01_3
         {
             bool isTreeDepthNumber = printRequirementsMessageReceiveInputAndTryParse(out int userIntInputTreeHeight);
 
-            while (isTreeDepthNumber == false || isValidTreeDepth(userIntInputTreeHeight) == false)
+            while(!isTreeDepthNumber || !isValidTreeDepth(userIntInputTreeHeight))
             {
                 printIfNotANumberInputMessage(isTreeDepthNumber);
-                if(isTreeDepthNumber == true)
+                if(isTreeDepthNumber)
                 {
                     printIfNotAValidNumberRange(userIntInputTreeHeight);
                 }
@@ -40,7 +41,7 @@ namespace Ex01_3
 
         private static void printIfNotANumberInputMessage(bool i_IsTypeOfInputInteger)
         {
-            if(i_IsTypeOfInputInteger == false)
+            if(!i_IsTypeOfInputInteger)
             {
                 Console.WriteLine("Invalid input! Input is not a number!");
             }
@@ -49,14 +50,16 @@ namespace Ex01_3
         private static void printIfNotAValidNumberRange(int i_TreeDepth)
         {
             string invalidMessage = string.Format("The tree depth entered ({0}) is invalid.", i_TreeDepth);
+
             Console.WriteLine(invalidMessage);
         }
 
-        private static bool printRequirementsMessageReceiveInputAndTryParse(out int io_UserIntInputTreeHeight)
+        private static bool printRequirementsMessageReceiveInputAndTryParse(out int o_UserIntInputTreeHeight)
         {
             Console.WriteLine("Please enter the desired tree height including the root (between 4 and 15): ");
             string userStringInputTreeHeight = Console.ReadLine();
-            return int.TryParse(userStringInputTreeHeight, out io_UserIntInputTreeHeight);
+
+            return int.TryParse(userStringInputTreeHeight, out o_UserIntInputTreeHeight);
         }
     }
 }
