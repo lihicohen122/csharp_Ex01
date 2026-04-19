@@ -30,7 +30,7 @@ namespace Ex01_4
             string requirementMessage = string.Format("Please enter an {0} character string: ", k_InputNumberLength);
             string invalidInputMessage = string.Format("Invalid input! Please enter an {0} character string: ", k_InputNumberLength);
 
-            Console.WriteLine();
+            Console.WriteLine(requirementMessage);
             string userInputString = Console.ReadLine();
 
             while(userInputString == null || userInputString.Length != k_InputNumberLength)
