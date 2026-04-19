@@ -15,26 +15,31 @@ namespace Ex01_2
             int currentWidth = 1;
             int currentLevel = 1;
             char currentCharToPrint = 'A';
+            int maxWidth = (i_TreeDepth - 2) * 2 - 1;
 
-            if (i_TreeDepth < 3)
+            if(i_TreeDepth < 3)
             {
                 string invalidMessage = string.Format("The tree depth entered ({0}) is invalid. Please enter a new tree depth between 4 and 15.", i_TreeDepth);
                 Console.WriteLine(invalidMessage);
+
                 return;
             }
 
-            int maxWidth = (i_TreeDepth - 2) * 2 - 1;
+            printTreeRecursive(currentLevel, ref currentCharToPrint, currentWidth, maxWidth, i_TreeDepth);
+        }
 
-            while (currentLevel + 2 <= i_TreeDepth)
+        private static void printTreeRecursive(int i_CurrentLevel, ref char i_CurrentCharToPrint, int i_CurrentWidth, int i_MaxWidth, int i_TreeDepth)
+        {
+            if(i_CurrentLevel + 2 > i_TreeDepth)
             {
-                printLine(currentLevel, ref currentCharToPrint, currentWidth, maxWidth);
-                currentLevel++;
-                currentWidth += 2;
+                printRoot(i_CurrentLevel, i_CurrentCharToPrint, i_MaxWidth);
+                printRoot(i_CurrentLevel + 1, i_CurrentCharToPrint, i_MaxWidth);
+
+                return;
             }
 
-            printRoot(currentLevel, currentCharToPrint, maxWidth);
-            currentLevel++;
-            printRoot(currentLevel, currentCharToPrint, maxWidth);
+            printLine(i_CurrentLevel, ref i_CurrentCharToPrint, i_CurrentWidth, i_MaxWidth);
+            printTreeRecursive(i_CurrentLevel + 1, ref i_CurrentCharToPrint, i_CurrentWidth + 2, i_MaxWidth, i_TreeDepth);
         }
 
         private static void printLine(int i_CurrentLevel, ref char i_CurrentCharToPrint, int i_CurrentWidth, int i_MaxWidth)
@@ -46,7 +51,7 @@ namespace Ex01_2
 
             treeLine.Append(spacesInTreeLine);
             treeLine.Append(' ');
-            while (currentLettersAmount <= i_CurrentWidth)
+            while(currentLettersAmount <= i_CurrentWidth)
             {
                 treeLine.Append(i_CurrentCharToPrint);
                 treeLine.Append(' ');

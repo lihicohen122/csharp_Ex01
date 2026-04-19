@@ -22,17 +22,20 @@ namespace Ex01_4
                 printNumberOfUpperCaseLettersIfStringIsAllEnglishLetters(userInputString);
                 printIsReversedAlphabeticalOrderIfStringIsAllEnglishLetters(userInputString);
             }
-
         }
 
         private static string printRequirementMessageCheckValidityAndGetUserInput()
         {
-            Console.WriteLine("Please enter an 8 character string: ");
+            const int k_InputNumberLength = 8;
+            string requirementMessage = string.Format("Please enter an {0} character string: ", k_InputNumberLength);
+            string invalidInputMessage = string.Format("Invalid input! Please enter an {0} character string: ", k_InputNumberLength);
+
+            Console.WriteLine();
             string userInputString = Console.ReadLine();
 
-            while(userInputString == null || userInputString.Length != 8)
+            while(userInputString == null || userInputString.Length != k_InputNumberLength)
             {
-                Console.WriteLine("Invalid input! Please enter an 8 character string: ");
+                Console.WriteLine(invalidInputMessage);
                 userInputString = Console.ReadLine();
             }
 
@@ -76,9 +79,8 @@ namespace Ex01_4
             if(areAllCharactersDigits)
             {
                 string isFourDivisibleSubString = userInputNumber % 4 == 0 ? "" : "not ";
-                string fourDivisibleMessage = string.Format(
-                    "The number is {0}divisible by 4.",
-                    isFourDivisibleSubString);
+                string fourDivisibleMessage = string.Format("The number is {0}divisible by 4.", isFourDivisibleSubString);
+
                 Console.WriteLine(fourDivisibleMessage);
             }
         }
@@ -87,7 +89,7 @@ namespace Ex01_4
         {
             int numOfUpperCaseLetters = 0;
 
-            for(int i = 0; i < i_UserInputString.Length; i++)
+            for(int i = 0; i < i_UserInputString.Length; ++i)
             {
                 if(char.IsUpper(i_UserInputString[i]))
                 {
@@ -95,9 +97,7 @@ namespace Ex01_4
                 }
             }
 
-            string upperCaseLettersMessage = string.Format(
-                "The number of uppercase letters in the string is: {0}.",
-                numOfUpperCaseLetters);
+            string upperCaseLettersMessage = string.Format("The number of uppercase letters in the string is: {0}.", numOfUpperCaseLetters);
 
             Console.WriteLine(upperCaseLettersMessage);
         }
@@ -106,9 +106,9 @@ namespace Ex01_4
         {
             bool isAllEnglishLetters = true;
 
-            for (int i = 0; i < i_UserInputString.Length; i++)
+            for(int i = 0; i < i_UserInputString.Length; ++i)
             {
-                if ((i_UserInputString[i] < 'A' || i_UserInputString[i] > 'Z')
+                if((i_UserInputString[i] < 'A' || i_UserInputString[i] > 'Z')
                     && (i_UserInputString[i] < 'a' || i_UserInputString[i] > 'z'))
                 {
                     isAllEnglishLetters = false;
@@ -124,7 +124,7 @@ namespace Ex01_4
             string allLowerCasedString = i_UserInputString.ToLower();
             bool isStringInReverseAlphabeticalOrder = true;
 
-            for(int i = 0; i < allLowerCasedString.Length - 1; i++)
+            for(int i = 0; i < allLowerCasedString.Length - 1; ++i)
             {
                 if(allLowerCasedString[i] < allLowerCasedString[i + 1])
                 {
@@ -134,13 +134,9 @@ namespace Ex01_4
             }
 
             string reverseAlphabeticalOrderSubString = isStringInReverseAlphabeticalOrder ? "" : "not ";
-            string reverseAlphabeticalOrderMessage = string.Format(
-                "The string is {0}in reverse alphabetical order.",
-                reverseAlphabeticalOrderSubString);
+            string reverseAlphabeticalOrderMessage = string.Format("The string is {0}in reverse alphabetical order.", reverseAlphabeticalOrderSubString);
 
             Console.WriteLine(reverseAlphabeticalOrderMessage);
         }
-    } 
-
-
+    }
 }
