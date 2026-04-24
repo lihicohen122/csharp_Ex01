@@ -214,18 +214,18 @@ namespace Ex01_1
 
         private static void printLongestBitSequenceOfBinaryNumber(string[] i_BinaryNumbers)
         {
-            getLongestBitSequence(i_BinaryNumbers, out string[] numbersWithMaxSequence, out int numbersCount, out int recordSequence);
+            int recordSequence = getLongestBitSequence(i_BinaryNumbers, out string[] numbersWithMaxSequence, out int numbersCount);
             string baseMessage = string.Format("Longest bit sequence: {0}", recordSequence);
             StringBuilder longestBitSequenceOfBinaryNumberOutput = new StringBuilder(baseMessage);
 
-            if(numbersCount > 0)
+            if (numbersCount > 0)
             {
                 longestBitSequenceOfBinaryNumberOutput.Append(" (");
-                for(int i = 0; i < numbersCount; ++i)
+                for (int i = 0; i < numbersCount; ++i)
                 {
-                    longestBitSequenceOfBinaryNumberOutput.Append(string.Format("{0}", numbersWithMaxSequence[i]));
+                    longestBitSequenceOfBinaryNumberOutput.Append(numbersWithMaxSequence[i]);
 
-                    if(i < numbersCount - 1)
+                    if (i < numbersCount - 1)
                     {
                         longestBitSequenceOfBinaryNumberOutput.Append(", ");
                     }
@@ -237,35 +237,35 @@ namespace Ex01_1
             Console.WriteLine(longestBitSequenceOfBinaryNumberOutput.ToString());
         }
 
-        private static void getLongestBitSequence(string[] i_BinaryNumbers, out string[] o_NumbersWithMaxSequence,
-                                                  out int o_NumbersCount, out int o_RecordSequence)
+        private static int getLongestBitSequence(string[] i_BinaryNumbers, out string[] o_NumbersWithMaxSequence, out int o_NumbersCount)
         {
             o_NumbersWithMaxSequence = new string[4];
             o_NumbersCount = 0;
-            o_RecordSequence = 0;
+            int recordSequence = 0;
 
-            if(i_BinaryNumbers == null || i_BinaryNumbers.Length == 0)
+            if(i_BinaryNumbers != null && i_BinaryNumbers.Length > 0)
             {
-                return;
+                for(int i = 0; i < i_BinaryNumbers.Length; ++i)
+                {
+                    string currentNumber = i_BinaryNumbers[i];
+                    int currentMax = getMaxBitSequence(currentNumber);
+
+                    if (currentMax > recordSequence)
+                    {
+                        recordSequence = currentMax;
+                        o_NumbersCount = 0;
+                        o_NumbersWithMaxSequence[o_NumbersCount] = currentNumber;
+                        o_NumbersCount++;
+                    }
+                    else if (currentMax == recordSequence && currentMax > 0 && o_NumbersCount < 4)
+                    {
+                        o_NumbersWithMaxSequence[o_NumbersCount] = currentNumber;
+                        o_NumbersCount++;
+                    }
+                }
             }
 
-            foreach (string currentNumber in i_BinaryNumbers)
-            {
-                int currentMax = getMaxBitSequence(currentNumber);
-
-                if(currentMax > o_RecordSequence)
-                {
-                    o_RecordSequence = currentMax;
-                    o_NumbersCount = 0;
-                    o_NumbersWithMaxSequence[o_NumbersCount] = currentNumber;
-                    o_NumbersCount++;
-                }
-                else if(currentMax == o_RecordSequence && currentMax > 0 && o_NumbersCount < 4)
-                {
-                    o_NumbersWithMaxSequence[o_NumbersCount] = currentNumber;
-                    o_NumbersCount++;
-                }
-            }
+            return recordSequence;
         }
 
         private static int getMaxBitSequence(string i_BinaryNumber)
