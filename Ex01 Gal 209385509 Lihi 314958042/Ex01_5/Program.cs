@@ -9,6 +9,7 @@ namespace Ex01_5
         {
             runApp();
         }
+
         private static void runApp()
         {
             string userInputString = printRequirementsAndGetUserInput(out int parsedUserInputToNumber);
@@ -21,65 +22,64 @@ namespace Ex01_5
 
         private static string printRequirementsAndGetUserInput(out int o_ParsedUserInputToNumber)
         {
-            const int k_UserInputNumberLength = 9;
-            string requirementMessage = string.Format("Please enter a {0} digit number: ", k_UserInputNumberLength);
-            string invalidMessage = string.Format("Invalid input! Please enter a {0} digit number: ", k_UserInputNumberLength);
+            const int k_RequiredLength = 9;
+            Console.WriteLine("Please enter a {0} digit number: ", k_RequiredLength);
+            string userInput = Console.ReadLine();
 
-            Console.WriteLine(requirementMessage);
-            string userInputString = Console.ReadLine();
-            bool areAllCharactersDigits = int.TryParse(userInputString, out o_ParsedUserInputToNumber);
-
-            while (!areAllCharactersDigits || string.IsNullOrEmpty(userInputString) || userInputString.Length != k_UserInputNumberLength)
+            while (!isValidInput(userInput, k_RequiredLength, out o_ParsedUserInputToNumber))
             {
-                Console.WriteLine(invalidMessage);
-                userInputString = Console.ReadLine();
-                areAllCharactersDigits = int.TryParse(userInputString, out o_ParsedUserInputToNumber);
+                Console.WriteLine("Invalid input! Please enter a positive {0} digit number: ", k_RequiredLength);
+                userInput = Console.ReadLine();
             }
 
-            return userInputString;
+            return userInput;
+        }
+
+        private static bool isValidInput(string i_Input, int i_Length, out int o_ParsedValue)
+        {
+            o_ParsedValue = 0;
+
+            return !string.IsNullOrEmpty(i_Input) && i_Input.Length == i_Length &&
+                   i_Input[0] != '-' && int.TryParse(i_Input, out o_ParsedValue);
         }
 
         private static void calculateAndPrintNumberOfDigitsBiggerThanUnitNumber(int i_UserInputNumber)
         {
             int unitNumber = i_UserInputNumber % 10;
+            string numberAsString = i_UserInputNumber.ToString();
             string unitNumberSubString = string.Format("Unit number is: {0}.", unitNumber);
-            StringBuilder numberOfDigitsBiggerThanUnitNumberStringBuilder = new StringBuilder(unitNumberSubString);
+            StringBuilder stringBuilder = new StringBuilder(unitNumberSubString);
             int numberOfDigitsBiggerThanUnitNumber = 0;
 
-            while(i_UserInputNumber > 0)
+            for(int i = 0; i < numberAsString.Length; ++i)
             {
-                int currentDigit = i_UserInputNumber % 10;
+                int currentDigit = numberAsString[i] - '0';
 
-                if(currentDigit > unitNumber)
+                if (currentDigit > unitNumber)
                 {
                     numberOfDigitsBiggerThanUnitNumber++;
-                    if(numberOfDigitsBiggerThanUnitNumber == 1)
+                    if (numberOfDigitsBiggerThanUnitNumber == 1)
                     {
-                        numberOfDigitsBiggerThanUnitNumberStringBuilder.Append(" Digits bigger than the unit number (excluding the unit number): ");
+                        stringBuilder.Append(" Digits bigger than the unit number (excluding the unit number): ");
                     }
-                    numberOfDigitsBiggerThanUnitNumberStringBuilder.Append(currentDigit);
-                    numberOfDigitsBiggerThanUnitNumberStringBuilder.Append(", ");
-                    
-                }
 
-                i_UserInputNumber /= 10;
+                    stringBuilder.Append(currentDigit);
+                    stringBuilder.Append(", ");
+                }
             }
 
-            if(numberOfDigitsBiggerThanUnitNumber > 0)
+            if (numberOfDigitsBiggerThanUnitNumber > 0)
             {
-                int indexOfLastComma = numberOfDigitsBiggerThanUnitNumberStringBuilder.ToString().LastIndexOf(',');
-
-                numberOfDigitsBiggerThanUnitNumberStringBuilder.Replace(',', '.', indexOfLastComma, 1);
+                stringBuilder.Length -= 2;
+                stringBuilder.Append(". ");
             }
             else
             {
-                numberOfDigitsBiggerThanUnitNumberStringBuilder.Append(" No digits bigger than the unit number. ");
+                stringBuilder.Append(" No digits bigger than the unit number. ");
             }
 
-            string subStringOfNumberOfDigitsBiggerThanUnitNumber = string.Format("Total of: {0}.", numberOfDigitsBiggerThanUnitNumber);
-
-            numberOfDigitsBiggerThanUnitNumberStringBuilder.Append(subStringOfNumberOfDigitsBiggerThanUnitNumber);
-            Console.WriteLine(numberOfDigitsBiggerThanUnitNumberStringBuilder.ToString());
+            stringBuilder.Append(string.Format("Total of: {0}.", numberOfDigitsBiggerThanUnitNumber));
+            Console.WriteLine(stringBuilder.ToString());
         }
 
         private static void printNumberOfDigitsDivisibleByFour(string i_UserInputString)
