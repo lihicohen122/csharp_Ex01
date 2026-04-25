@@ -57,32 +57,32 @@ namespace Ex01_1
 
         private static bool isBinary(string i_BinaryNumber)
         { 
-            bool isBinary = true;
+            bool isBinaryResult = true;
             for(int i = 0; i < i_BinaryNumber.Length; ++i)
             {
                 if(i_BinaryNumber[i] != '0' && i_BinaryNumber[i] != '1')
                 {
-                    isBinary = false;
+                    isBinaryResult = false;
                 }
             }
 
-            return isBinary;
+            return isBinaryResult;
         }
 
         private static int convertBinaryNumberToDecimalNumber(string i_BinaryNumber)
         {
-            int result = 0;
+            int decimalNumberResult = 0;
             int binaryNumberLength = i_BinaryNumber.Length;
 
             for(int i = 0; i < binaryNumberLength; ++i)
             {
                 if(i_BinaryNumber[i] == '1')
                 {
-                    result += (int)Math.Pow(2, binaryNumberLength - 1 - i);
+                    decimalNumberResult += (int)Math.Pow(2, binaryNumberLength - 1 - i);
                 }
             }
             
-            return result;
+            return decimalNumberResult;
         }
 
         private static void descendingMergeSortDecimalNumbersArray(int[] i_DecimalNumbers)
@@ -156,7 +156,7 @@ namespace Ex01_1
             char[] binaryNumber = new char[i_BinaryNumberLength];
             int index = i_BinaryNumberLength - 1;
 
-            for (int i = 0; i < i_BinaryNumberLength; ++i)
+            for(int i = 0; i < i_BinaryNumberLength; ++i)
             {
                 binaryNumber[i] = '0';
             }
@@ -214,18 +214,17 @@ namespace Ex01_1
 
         private static void printLongestBitSequenceOfBinaryNumber(string[] i_BinaryNumbers)
         {
-            int recordSequence = getLongestBitSequence(i_BinaryNumbers, out string[] numbersWithMaxSequence, out int numbersCount);
-            string baseMessage = string.Format("Longest bit sequence: {0}", recordSequence);
+            int recordSequenceResult = getLongestBitSequence(i_BinaryNumbers, out string[] numbersWithMaxSequence, out int numbersCount);
+            string baseMessage = string.Format("Longest bit sequence: {0}", recordSequenceResult);
             StringBuilder longestBitSequenceOfBinaryNumberOutput = new StringBuilder(baseMessage);
 
-            if (numbersCount > 0)
+            if(numbersCount > 0)
             {
                 longestBitSequenceOfBinaryNumberOutput.Append(" (");
-                for (int i = 0; i < numbersCount; ++i)
+                for(int i = 0; i < numbersCount; ++i)
                 {
                     longestBitSequenceOfBinaryNumberOutput.Append(numbersWithMaxSequence[i]);
-
-                    if (i < numbersCount - 1)
+                    if(i < numbersCount - 1)
                     {
                         longestBitSequenceOfBinaryNumberOutput.Append(", ");
                     }
@@ -352,7 +351,8 @@ namespace Ex01_1
                 currentTransitionsCounter = 0;
             }
             
-            string numberWithMostTransitionsMessage = string.Format("Number with most transitions: {0} ({1}) - {2} transitions", decimalNumberWithMostTransitions, binaryNumberWithMostTransitions, mostTransitionsCounter);
+            string numberWithMostTransitionsMessage = string.Format("Number with most transitions: {0} ({1}) - {2} transitions",
+                decimalNumberWithMostTransitions, binaryNumberWithMostTransitions, mostTransitionsCounter);
 
             Console.WriteLine(numberWithMostTransitionsMessage);
         }
