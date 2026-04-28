@@ -24,8 +24,8 @@ namespace Ex01_1
         private static void getUserInput(int i_DesiredAmountOfNumbers, int i_DesiredBinaryNumberLength, out int[] o_DecimalNumbers)
         {
             int currentAmountOfNumbers = 0;
-            o_DecimalNumbers = new int[i_DesiredAmountOfNumbers];
 
+            o_DecimalNumbers = new int[i_DesiredAmountOfNumbers];
             Console.WriteLine("Please enter 4 binary numbers.");
             Console.WriteLine("Each binary number entered must be exactly 7 characters long and contain only 0 or 1: ");
             while(currentAmountOfNumbers < i_DesiredAmountOfNumbers)
@@ -58,6 +58,7 @@ namespace Ex01_1
         private static bool isBinary(string i_BinaryNumber)
         { 
             bool isBinaryResult = true;
+
             for(int i = 0; i < i_BinaryNumber.Length; ++i)
             {
                 if(i_BinaryNumber[i] != '0' && i_BinaryNumber[i] != '1')
