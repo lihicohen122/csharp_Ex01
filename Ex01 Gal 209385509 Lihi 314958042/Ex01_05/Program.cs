@@ -48,15 +48,14 @@ namespace Ex01_05
 
         private static void calculateAndPrintNumberOfDigitsBiggerThanUnitNumber(string i_UserInputString)
         {
-            int unitNumber = (int)char.GetNumericValue(i_UserInputString[i_UserInputString.Length - 1]);
+            int.TryParse(i_UserInputString[i_UserInputString.Length - 1].ToString(), out int unitNumber);
             string unitNumberSubString = string.Format("Unit number is: {0}.", unitNumber);
             StringBuilder biggerDigitsMessage = new StringBuilder(unitNumberSubString);
             int numberOfDigitsBiggerThanUnitNumber = 0;
 
             for(int i = 0; i < i_UserInputString.Length; ++i)
             {
-                int currentDigit = (int)char.GetNumericValue(i_UserInputString[i]);
-
+                int.TryParse(i_UserInputString[i].ToString(), out int currentDigit);
                 if(currentDigit > unitNumber)
                 {
                     numberOfDigitsBiggerThanUnitNumber++;
@@ -99,7 +98,8 @@ namespace Ex01_05
 
             for(int i = 0; i < userInputStringLength; ++i)
             {
-                if((int)char.GetNumericValue(i_UserInputString[i]) % 4 == 0)
+                int.TryParse(i_UserInputString[i].ToString(), out int currentDigit);
+                if(currentDigit % 4 == 0)
                 {
                     numberOfDigitsDivisibleByFour++;
                 }
@@ -124,8 +124,7 @@ namespace Ex01_05
 
             for(int i = 0; i < userInputStringLength; ++i)
             {
-                int currentDigit = (int)char.GetNumericValue(i_UserInputString[i]);
-
+                int.TryParse(i_UserInputString[i].ToString(), out int currentDigit);
                 if(currentDigit > maximumDigitInUserString)
                 {
                     maximumDigitInUserString = currentDigit;
@@ -156,8 +155,7 @@ namespace Ex01_05
 
             for(int i = 0; i < userInputStringLength; ++i)
             {
-                int currentDigit = (int)char.GetNumericValue(i_UserInputString[i]);
-
+                int.TryParse(i_UserInputString[i].ToString(), out int currentDigit);
                 if(digitFoundFlags[currentDigit] == '0')
                 {
                     numberOfUniqueDigitsInNumberResult++;

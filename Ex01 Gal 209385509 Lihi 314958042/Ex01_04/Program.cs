@@ -65,7 +65,7 @@ namespace Ex01_04
         private static void printIsStringPalindrome(string i_UserInputString)
         {
             bool isPalindrome = isUserInputPalindrome(i_UserInputString);
-            string isPalindromeSubString = isPalindrome ? "" : "not ";
+            string isPalindromeSubString = isPalindrome ? string.Empty : "not ";
             string palindromeMessage = string.Format("The string is {0}a palindrome.", isPalindromeSubString);
 
             Console.WriteLine(palindromeMessage);
@@ -73,12 +73,11 @@ namespace Ex01_04
 
         private static void printIsNumberDivisibleByFourIfStringIsNumber(string i_UserInputString)
         {
-            // bool areAllCharactersDigits = userInputString.All(char.IsDigit);
             bool areAllCharactersDigits = int.TryParse(i_UserInputString, out int userInputNumber);
 
             if(areAllCharactersDigits)
             {
-                string isFourDivisibleSubString = userInputNumber % 4 == 0 ? "" : "not ";
+                string isFourDivisibleSubString = userInputNumber % 4 == 0 ? string.Empty : "not ";
                 string fourDivisibleMessage = string.Format("The number is {0}divisible by 4.", isFourDivisibleSubString);
 
                 Console.WriteLine(fourDivisibleMessage);
@@ -133,7 +132,7 @@ namespace Ex01_04
                 }
             }
 
-            string reverseAlphabeticalOrderSubString = isStringInReverseAlphabeticalOrder ? "" : "not ";
+            string reverseAlphabeticalOrderSubString = isStringInReverseAlphabeticalOrder ? string.Empty : "not ";
             string reverseAlphabeticalOrderMessage = string.Format("The string is {0}in reverse alphabetical order.", reverseAlphabeticalOrderSubString);
 
             Console.WriteLine(reverseAlphabeticalOrderMessage);
