@@ -20,6 +20,7 @@ namespace Ex01_02
             if(i_TreeDepth < 3)
             {
                 string invalidMessage = string.Format("The tree depth entered ({0}) is invalid. Please enter a new tree depth between 4 and 15.", i_TreeDepth);
+                
                 Console.WriteLine(invalidMessage);
 
                 return;

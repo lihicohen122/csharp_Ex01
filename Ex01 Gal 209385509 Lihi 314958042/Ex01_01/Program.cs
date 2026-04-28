@@ -164,7 +164,7 @@ namespace Ex01_01
             
             while(i_DecimalNumber > 0 && index >= 0)
             {
-                binaryNumber[index] = (char)((i_DecimalNumber % 2) + '0');
+                char.TryParse((i_DecimalNumber % 2).ToString(), out binaryNumber[index]);
                 i_DecimalNumber /= 2;
                 index--;
             }
