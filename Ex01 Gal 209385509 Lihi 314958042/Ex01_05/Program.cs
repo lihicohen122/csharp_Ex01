@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace Ex01_5
+namespace Ex01_05
 {
     public class Program
     {

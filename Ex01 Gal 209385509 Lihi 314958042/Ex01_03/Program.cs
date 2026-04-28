@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ex01_3
+namespace Ex01_03
 {
     public class Program
     {
@@ -13,7 +13,7 @@ namespace Ex01_3
         {
             int treeDepth = getUserInput();
 
-            Ex01_2.Program.PrintTree(treeDepth);
+            Ex01_02.Program.PrintTree(treeDepth);
         }
 
         private static int getUserInput()
