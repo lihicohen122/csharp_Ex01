@@ -12,7 +12,7 @@ namespace Ex01_05
 
         private static void runApp()
         {
-            string userInputString = printRequirementsAndGetUserInput(out int parsedUserInputToNumber);
+            string userInputString = printRequirementsAndGetUserInput();
 
             calculateAndPrintNumberOfDigitsBiggerThanUnitNumber(userInputString);
             printNumberOfDigitsDivisibleByFour(userInputString);
@@ -20,7 +20,7 @@ namespace Ex01_05
             printNumberOfUniqueDigitsInNumber(userInputString);
         }
 
-        private static string printRequirementsAndGetUserInput(out int o_ParsedUserInputToNumber)
+        private static string printRequirementsAndGetUserInput()
         {
             const int k_RequiredNumberLength = 9;
             string requirementMessage = string.Format("Please enter a {0} digit number: ", k_RequiredNumberLength);
@@ -29,7 +29,7 @@ namespace Ex01_05
             Console.WriteLine(requirementMessage);
             string userInput = Console.ReadLine();
 
-            while(!isValidInput(userInput, k_RequiredNumberLength, out o_ParsedUserInputToNumber))
+            while(!isValidInput(userInput, k_RequiredNumberLength))
             {
                 Console.WriteLine(invalidMessage);
                 userInput = Console.ReadLine();
@@ -38,12 +38,10 @@ namespace Ex01_05
             return userInput;
         }
 
-        private static bool isValidInput(string i_Input, int i_Length, out int o_ParsedValue)
+        private static bool isValidInput(string i_Input, int i_Length)
         {
-            o_ParsedValue = 0;
-
             return !string.IsNullOrEmpty(i_Input) && i_Input.Length == i_Length &&
-                   i_Input[0] != '-' && int.TryParse(i_Input, out o_ParsedValue);
+                   i_Input[0] != '-' && int.TryParse(i_Input, out int parsedValue);
         }
 
         private static void calculateAndPrintNumberOfDigitsBiggerThanUnitNumber(string i_UserInputString)
